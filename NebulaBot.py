@@ -18,12 +18,19 @@ bot = commands.Bot(command_prefix="!", intents=intents)
 # Event runs when bot comes online
 @bot.event
 async def on_ready():
+    # Ensure bot can be activated via slash commands
+    await bot.tree.sync()
     print(f"{bot.user} is online!")
 
+# @bot.event
+# async def on_message(msg):
+#     # Check if messasge was sent by user
+#     if msg.author.id != bot.user.id:
+#         await msg.channel.send(f"Interesting message, {msg.author.mention}")
 
-@bot.event
-async def on_message(msg):
-    if msg.author.id != bot.user.id:
-        await msg.channel.send(f"Interesting message, {msg.author.mention}")
+# @bot.tree.command(name="greet", description="Sends a greeting to the user")
+# async def greet(interaction: discord.Interaction):
+#     username = interaction.user.mention
+#     await interaction.response.send_message(f"Hello there, {username}")
 
 bot.run(TOKEN)
